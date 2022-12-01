@@ -1,17 +1,26 @@
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlin.math.max
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
-    }
+    val input = readInput("Day01").trim().split("\n\n")
 
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    val elves = groupElves(input).sumElvesSnacks()
+    println(part01(elves))
+    println(part02(elves))
 }
+
+fun groupElves(input: List<String>) =
+    input.map { s ->
+        s.split("\n").map(String::toInt)
+    }
+
+fun List<List<Int>>.sumElvesSnacks() =
+    fold(listOf<Int>()) { elves, elf ->
+        elves + listOf(elf.sum())
+    }
+
+fun part01(elves: List<Int>) = elves.max()
+
+fun part02(elves: List<Int>) =
+    elves.sortedDescending().take(3).sum()
