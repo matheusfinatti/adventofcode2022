@@ -24,3 +24,7 @@ fun <T> Stack<T>.peek(): T? = if(isNotEmpty()) this[count() - 1] else null
 fun <T> Stack<T>.hasMore() = isNotEmpty()
 fun <T> Stack<T>.dropLast(n: Int): Stack<T> = dropLast(n)
 fun <T> stackOf(vararg args: T): Stack<T> = mutableListOf(*args)
+
+
+fun <T> List<T>.dropIf(n: Int, predicate: List<T>.() -> Boolean) =
+    if (predicate()) drop(n) else this
