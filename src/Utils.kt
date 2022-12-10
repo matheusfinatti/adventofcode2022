@@ -27,3 +27,13 @@ fun <T> stackOf(vararg args: T): Stack<T> = mutableListOf(*args)
 
 fun <T> List<T>.dropIf(n: Int, predicate: List<T>.() -> Boolean) =
     if (predicate()) drop(n) else this
+inline fun <reified T> Array<Array<T>>.map2dIndexed(function: (Int, Int, T) -> T): Array<Array<T?>> {
+    val data = Array(this.size) { arrayOfNulls<T>(this[0].size) }
+
+    for (i in indices) {
+        for (j in data[i].indices) {
+            data[i][j] = function(i, j, this[i][j])
+        }
+    }
+    return data
+}
